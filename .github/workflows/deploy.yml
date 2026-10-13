@@ -25,14 +25,33 @@ jobs:
       - name: Build do projeto
         run: npm run build
 
-      - name: Verificar arquivos gerados
+      - name: Localizar arquivos do build
+        shell: bash
         run: |
-          test -f dist/index.html
-          ls -la dist/
+          echo "Conteúdo da raiz do projeto:"
+          ls -la
+
+          if [ -f dist/index.html ]; then
+            echo "DEPLOY_DIR=dist" >> "$GITHUB_ENV"
+          elif [ -f build/index.html ]; then
+            echo "DEPLOY_DIR=build" >> "$GITHUB_ENV"
+          elif [ -f out/index.html ]; then
+            echo "DEPLOY_DIR=out" >> "$GITHUB_ENV"
+          else
+            echo "Não encontrei index.html nas pastas conhecidas."
+            echo "Procurando arquivos index.html:"
+            find . -maxdepth 5 -type f -name index.html \
+              -not -path './node_modules/*' \
+              -not -path './.git/*'
+            exit 1
+          fi
+
+          echo "Pasta de publicação identificada."
 
       - name: Adicionar .htaccess ao build
+        shell: bash
         run: |
-          cat > dist/.htaccess <<'EOF'
+          cat > "$DEPLOY_DIR/.htaccess" <<'EOF'
           DirectoryIndex index.html index.php
           RewriteEngine On
           RewriteBase /
@@ -42,6 +61,9 @@ jobs:
           RewriteRule . /index.html [L]
           EOF
 
+          echo "Arquivos que serão publicados:"
+          ls -la "$DEPLOY_DIR"
+
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -49,7 +71,7 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
           server-dir: /public_html/
-          local-dir: dist/
+          local-dir: ${{ env.DEPLOY_DIR }}/
           protocol: ftp
           port: 21
           dangerous-clean-slate: false
