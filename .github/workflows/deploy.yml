@@ -25,9 +25,13 @@ jobs:
       - name: Build do projeto
         run: npm run build
 
+      - name: Verificar arquivos gerados
+        run: |
+          test -f dist/index.html
+          ls -la dist/
+
       - name: Adicionar .htaccess ao build
         run: |
-          mkdir -p dist
           cat > dist/.htaccess <<'EOF'
           DirectoryIndex index.html index.php
           RewriteEngine On
@@ -38,16 +42,13 @@ jobs:
           RewriteRule . /index.html [L]
           EOF
 
-      - name: Mostrar arquivos gerados
-        run: ls -la dist/
-
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
-          server-dir: public_html/
+          server-dir: /public_html/
           local-dir: dist/
           protocol: ftp
           port: 21
