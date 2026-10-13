@@ -10,33 +10,187 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as ServicosRouteImport } from './routes/servicos'
+import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as TelemedicinaRouteImport } from './routes/telemedicina'
+import { Route as ServicosIndexRouteImport } from './routes/servicos.index'
+import { Route as ServicosAreaProtegidaRouteImport } from './routes/servicos.area-protegida'
+import { Route as ServicosCartaoDeBeneficiosRouteImport } from './routes/servicos.cartao-de-beneficios'
+import { Route as ServicosCoberturaDeEventosRouteImport } from './routes/servicos.cobertura-de-eventos'
+import { Route as ServicosExamesDomicilioRouteImport } from './routes/servicos.exames-domicilio'
+import { Route as ServicosFisioterapiaDomiciliarRouteImport } from './routes/servicos.fisioterapia-domiciliar'
+import { Route as ServicosProntoAtendimentoDomiciliarRouteImport } from './routes/servicos.pronto-atendimento-domiciliar'
+import { Route as ServicosRemocaoMedicaRouteImport } from './routes/servicos.remocao-medica'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicosRoute = ServicosRouteImport.update({
+  id: '/servicos',
+  path: '/servicos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TelemedicinaRoute = TelemedicinaRouteImport.update({
+  id: '/telemedicina',
+  path: '/telemedicina',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicosIndexRoute = ServicosIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ServicosRoute,
+} as any)
+const ServicosAreaProtegidaRoute = ServicosAreaProtegidaRouteImport.update({
+  id: '/area-protegida',
+  path: '/area-protegida',
+  getParentRoute: () => ServicosRoute,
+} as any)
+const ServicosCartaoDeBeneficiosRoute =
+  ServicosCartaoDeBeneficiosRouteImport.update({
+    id: '/cartao-de-beneficios',
+    path: '/cartao-de-beneficios',
+    getParentRoute: () => ServicosRoute,
+  } as any)
+const ServicosCoberturaDeEventosRoute =
+  ServicosCoberturaDeEventosRouteImport.update({
+    id: '/cobertura-de-eventos',
+    path: '/cobertura-de-eventos',
+    getParentRoute: () => ServicosRoute,
+  } as any)
+const ServicosExamesDomicilioRoute = ServicosExamesDomicilioRouteImport.update({
+  id: '/exames-domicilio',
+  path: '/exames-domicilio',
+  getParentRoute: () => ServicosRoute,
+} as any)
+const ServicosFisioterapiaDomiciliarRoute =
+  ServicosFisioterapiaDomiciliarRouteImport.update({
+    id: '/fisioterapia-domiciliar',
+    path: '/fisioterapia-domiciliar',
+    getParentRoute: () => ServicosRoute,
+  } as any)
+const ServicosProntoAtendimentoDomiciliarRoute =
+  ServicosProntoAtendimentoDomiciliarRouteImport.update({
+    id: '/pronto-atendimento-domiciliar',
+    path: '/pronto-atendimento-domiciliar',
+    getParentRoute: () => ServicosRoute,
+  } as any)
+const ServicosRemocaoMedicaRoute = ServicosRemocaoMedicaRouteImport.update({
+  id: '/remocao-medica',
+  path: '/remocao-medica',
+  getParentRoute: () => ServicosRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contato': typeof ContatoRoute
+  '/servicos': typeof ServicosRouteWithChildren
+  '/sobre': typeof SobreRoute
+  '/telemedicina': typeof TelemedicinaRoute
+  '/servicos/area-protegida': typeof ServicosAreaProtegidaRoute
+  '/servicos/cartao-de-beneficios': typeof ServicosCartaoDeBeneficiosRoute
+  '/servicos/cobertura-de-eventos': typeof ServicosCoberturaDeEventosRoute
+  '/servicos/exames-domicilio': typeof ServicosExamesDomicilioRoute
+  '/servicos/fisioterapia-domiciliar': typeof ServicosFisioterapiaDomiciliarRoute
+  '/servicos/pronto-atendimento-domiciliar': typeof ServicosProntoAtendimentoDomiciliarRoute
+  '/servicos/remocao-medica': typeof ServicosRemocaoMedicaRoute
+  '/servicos/': typeof ServicosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contato': typeof ContatoRoute
+  '/sobre': typeof SobreRoute
+  '/telemedicina': typeof TelemedicinaRoute
+  '/servicos/area-protegida': typeof ServicosAreaProtegidaRoute
+  '/servicos/cartao-de-beneficios': typeof ServicosCartaoDeBeneficiosRoute
+  '/servicos/cobertura-de-eventos': typeof ServicosCoberturaDeEventosRoute
+  '/servicos/exames-domicilio': typeof ServicosExamesDomicilioRoute
+  '/servicos/fisioterapia-domiciliar': typeof ServicosFisioterapiaDomiciliarRoute
+  '/servicos/pronto-atendimento-domiciliar': typeof ServicosProntoAtendimentoDomiciliarRoute
+  '/servicos/remocao-medica': typeof ServicosRemocaoMedicaRoute
+  '/servicos': typeof ServicosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contato': typeof ContatoRoute
+  '/servicos': typeof ServicosRouteWithChildren
+  '/sobre': typeof SobreRoute
+  '/telemedicina': typeof TelemedicinaRoute
+  '/servicos/area-protegida': typeof ServicosAreaProtegidaRoute
+  '/servicos/cartao-de-beneficios': typeof ServicosCartaoDeBeneficiosRoute
+  '/servicos/cobertura-de-eventos': typeof ServicosCoberturaDeEventosRoute
+  '/servicos/exames-domicilio': typeof ServicosExamesDomicilioRoute
+  '/servicos/fisioterapia-domiciliar': typeof ServicosFisioterapiaDomiciliarRoute
+  '/servicos/pronto-atendimento-domiciliar': typeof ServicosProntoAtendimentoDomiciliarRoute
+  '/servicos/remocao-medica': typeof ServicosRemocaoMedicaRoute
+  '/servicos/': typeof ServicosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/contato'
+    | '/servicos'
+    | '/sobre'
+    | '/telemedicina'
+    | '/servicos/area-protegida'
+    | '/servicos/cartao-de-beneficios'
+    | '/servicos/cobertura-de-eventos'
+    | '/servicos/exames-domicilio'
+    | '/servicos/fisioterapia-domiciliar'
+    | '/servicos/pronto-atendimento-domiciliar'
+    | '/servicos/remocao-medica'
+    | '/servicos/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/contato'
+    | '/sobre'
+    | '/telemedicina'
+    | '/servicos/area-protegida'
+    | '/servicos/cartao-de-beneficios'
+    | '/servicos/cobertura-de-eventos'
+    | '/servicos/exames-domicilio'
+    | '/servicos/fisioterapia-domiciliar'
+    | '/servicos/pronto-atendimento-domiciliar'
+    | '/servicos/remocao-medica'
+    | '/servicos'
+  id:
+    | '__root__'
+    | '/'
+    | '/contato'
+    | '/servicos'
+    | '/sobre'
+    | '/telemedicina'
+    | '/servicos/area-protegida'
+    | '/servicos/cartao-de-beneficios'
+    | '/servicos/cobertura-de-eventos'
+    | '/servicos/exames-domicilio'
+    | '/servicos/fisioterapia-domiciliar'
+    | '/servicos/pronto-atendimento-domiciliar'
+    | '/servicos/remocao-medica'
+    | '/servicos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContatoRoute: typeof ContatoRoute
+  ServicosRoute: typeof ServicosRouteWithChildren
+  SobreRoute: typeof SobreRoute
+  TelemedicinaRoute: typeof TelemedicinaRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +202,126 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/servicos': {
+      id: '/servicos'
+      path: '/servicos'
+      fullPath: '/servicos'
+      preLoaderRoute: typeof ServicosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/telemedicina': {
+      id: '/telemedicina'
+      path: '/telemedicina'
+      fullPath: '/telemedicina'
+      preLoaderRoute: typeof TelemedicinaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/servicos/': {
+      id: '/servicos/'
+      path: '/'
+      fullPath: '/servicos/'
+      preLoaderRoute: typeof ServicosIndexRouteImport
+      parentRoute: typeof ServicosRoute
+    }
+    '/servicos/area-protegida': {
+      id: '/servicos/area-protegida'
+      path: '/area-protegida'
+      fullPath: '/servicos/area-protegida'
+      preLoaderRoute: typeof ServicosAreaProtegidaRouteImport
+      parentRoute: typeof ServicosRoute
+    }
+    '/servicos/cartao-de-beneficios': {
+      id: '/servicos/cartao-de-beneficios'
+      path: '/cartao-de-beneficios'
+      fullPath: '/servicos/cartao-de-beneficios'
+      preLoaderRoute: typeof ServicosCartaoDeBeneficiosRouteImport
+      parentRoute: typeof ServicosRoute
+    }
+    '/servicos/cobertura-de-eventos': {
+      id: '/servicos/cobertura-de-eventos'
+      path: '/cobertura-de-eventos'
+      fullPath: '/servicos/cobertura-de-eventos'
+      preLoaderRoute: typeof ServicosCoberturaDeEventosRouteImport
+      parentRoute: typeof ServicosRoute
+    }
+    '/servicos/exames-domicilio': {
+      id: '/servicos/exames-domicilio'
+      path: '/exames-domicilio'
+      fullPath: '/servicos/exames-domicilio'
+      preLoaderRoute: typeof ServicosExamesDomicilioRouteImport
+      parentRoute: typeof ServicosRoute
+    }
+    '/servicos/fisioterapia-domiciliar': {
+      id: '/servicos/fisioterapia-domiciliar'
+      path: '/fisioterapia-domiciliar'
+      fullPath: '/servicos/fisioterapia-domiciliar'
+      preLoaderRoute: typeof ServicosFisioterapiaDomiciliarRouteImport
+      parentRoute: typeof ServicosRoute
+    }
+    '/servicos/pronto-atendimento-domiciliar': {
+      id: '/servicos/pronto-atendimento-domiciliar'
+      path: '/pronto-atendimento-domiciliar'
+      fullPath: '/servicos/pronto-atendimento-domiciliar'
+      preLoaderRoute: typeof ServicosProntoAtendimentoDomiciliarRouteImport
+      parentRoute: typeof ServicosRoute
+    }
+    '/servicos/remocao-medica': {
+      id: '/servicos/remocao-medica'
+      path: '/remocao-medica'
+      fullPath: '/servicos/remocao-medica'
+      preLoaderRoute: typeof ServicosRemocaoMedicaRouteImport
+      parentRoute: typeof ServicosRoute
+    }
   }
 }
 
+interface ServicosRouteChildren {
+  ServicosAreaProtegidaRoute: typeof ServicosAreaProtegidaRoute
+  ServicosCartaoDeBeneficiosRoute: typeof ServicosCartaoDeBeneficiosRoute
+  ServicosCoberturaDeEventosRoute: typeof ServicosCoberturaDeEventosRoute
+  ServicosExamesDomicilioRoute: typeof ServicosExamesDomicilioRoute
+  ServicosFisioterapiaDomiciliarRoute: typeof ServicosFisioterapiaDomiciliarRoute
+  ServicosProntoAtendimentoDomiciliarRoute: typeof ServicosProntoAtendimentoDomiciliarRoute
+  ServicosRemocaoMedicaRoute: typeof ServicosRemocaoMedicaRoute
+  ServicosIndexRoute: typeof ServicosIndexRoute
+}
+
+const ServicosRouteChildren: ServicosRouteChildren = {
+  ServicosAreaProtegidaRoute: ServicosAreaProtegidaRoute,
+  ServicosCartaoDeBeneficiosRoute: ServicosCartaoDeBeneficiosRoute,
+  ServicosCoberturaDeEventosRoute: ServicosCoberturaDeEventosRoute,
+  ServicosExamesDomicilioRoute: ServicosExamesDomicilioRoute,
+  ServicosFisioterapiaDomiciliarRoute: ServicosFisioterapiaDomiciliarRoute,
+  ServicosProntoAtendimentoDomiciliarRoute:
+    ServicosProntoAtendimentoDomiciliarRoute,
+  ServicosRemocaoMedicaRoute: ServicosRemocaoMedicaRoute,
+  ServicosIndexRoute: ServicosIndexRoute,
+}
+
+const ServicosRouteWithChildren = ServicosRoute._addFileChildren(
+  ServicosRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContatoRoute: ContatoRoute,
+  ServicosRoute: ServicosRouteWithChildren,
+  SobreRoute: SobreRoute,
+  TelemedicinaRoute: TelemedicinaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
