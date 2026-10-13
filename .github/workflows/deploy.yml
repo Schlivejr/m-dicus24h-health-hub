@@ -20,38 +20,29 @@ jobs:
           node-version: 22
 
       - name: Instalar dependências
-        run: npm install
+        run: npm ci
 
       - name: Build do projeto
         run: npm run build
 
-      - name: Localizar arquivos do build
+      - name: Verificar saída pública
         shell: bash
         run: |
-          echo "Conteúdo da raiz do projeto:"
-          ls -la
+          echo "Conteúdo de .output:"
+          find .output -maxdepth 3 -type f | head -80
 
-          if [ -f dist/index.html ]; then
-            echo "DEPLOY_DIR=dist" >> "$GITHUB_ENV"
-          elif [ -f build/index.html ]; then
-            echo "DEPLOY_DIR=build" >> "$GITHUB_ENV"
-          elif [ -f out/index.html ]; then
-            echo "DEPLOY_DIR=out" >> "$GITHUB_ENV"
+          if [ -f .output/public/index.html ]; then
+            echo "DEPLOY_DIR=.output/public" >> "$GITHUB_ENV"
+            echo "Saída estática encontrada."
           else
-            echo "Não encontrei index.html nas pastas conhecidas."
-            echo "Procurando arquivos index.html:"
-            find . -maxdepth 5 -type f -name index.html \
-              -not -path './node_modules/*' \
-              -not -path './.git/*'
+            echo "ERRO: .output/public/index.html não existe."
+            echo "O projeto pode exigir um servidor Nitro."
             exit 1
           fi
 
-          echo "Pasta de publicação identificada."
-
-      - name: Adicionar .htaccess ao build
-        shell: bash
+      - name: Adicionar .htaccess
         run: |
-          cat > "$DEPLOY_DIR/.htaccess" <<'EOF'
+          cat > .output/public/.htaccess <<'EOF'
           DirectoryIndex index.html index.php
           RewriteEngine On
           RewriteBase /
@@ -61,8 +52,8 @@ jobs:
           RewriteRule . /index.html [L]
           EOF
 
-          echo "Arquivos que serão publicados:"
-          ls -la "$DEPLOY_DIR"
+      - name: Mostrar arquivos que serão publicados
+        run: ls -la .output/public/
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -71,7 +62,7 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
           server-dir: /public_html/
-          local-dir: ${{ env.DEPLOY_DIR }}/
+          local-dir: .output/public/
           protocol: ftp
           port: 21
           dangerous-clean-slate: false
