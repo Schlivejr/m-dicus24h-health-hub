@@ -28,21 +28,20 @@ jobs:
       - name: Verificar saída pública
         shell: bash
         run: |
-          echo "Conteúdo de .output:"
-          find .output -maxdepth 3 -type f | head -80
+          echo "Páginas estáticas geradas:"
+          find dist/client -name '*.html'
 
-          if [ -f .output/public/index.html ]; then
-            echo "DEPLOY_DIR=.output/public" >> "$GITHUB_ENV"
+          if [ -f dist/client/index.html ] && [ -f dist/client/sobre/index.html ]; then
+            echo "DEPLOY_DIR=dist/client" >> "$GITHUB_ENV"
             echo "Saída estática encontrada."
           else
-            echo "ERRO: .output/public/index.html não existe."
-            echo "O projeto pode exigir um servidor Nitro."
+            echo "ERRO: páginas estáticas não foram geradas em dist/client."
             exit 1
           fi
 
       - name: Adicionar .htaccess
         run: |
-          cat > .output/public/.htaccess <<'EOF'
+          cat > dist/client/.htaccess <<'EOF'
           DirectoryIndex index.html index.php
           RewriteEngine On
           RewriteBase /
@@ -53,7 +52,7 @@ jobs:
           EOF
 
       - name: Mostrar arquivos que serão publicados
-        run: ls -la .output/public/
+        run: ls -la dist/client/
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -62,7 +61,7 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
           server-dir: /public_html/
-          local-dir: .output/public/
+          local-dir: dist/client/
           protocol: ftp
           port: 21
           dangerous-clean-slate: false
