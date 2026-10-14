@@ -6,10 +6,28 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+const staticPages = [
+  "/",
+  "/sobre",
+  "/contato",
+  "/telemedicina",
+  "/servicos",
+  "/servicos/area-protegida",
+  "/servicos/cartao-de-beneficios",
+  "/servicos/cobertura-de-eventos",
+  "/servicos/exames-domicilio",
+  "/servicos/fisioterapia-domiciliar",
+  "/servicos/pronto-atendimento-domiciliar",
+  "/servicos/remocao-medica",
+];
+
 export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
+    // Every public page is rendered to static HTML at build time (static FTP hosting).
+    pages: staticPages.map((path) => ({ path })),
+    prerender: { enabled: true, autoStaticPathsDiscovery: false },
   },
 });
