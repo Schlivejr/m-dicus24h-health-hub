@@ -3,7 +3,8 @@ import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import { Header, Footer } from "@/components/medicus-shell";
 import { Button } from "@/components/ui/button";
 import { services, whatsapp } from "@/lib/medicus-content";
-import care from "@/assets/assistencia-domiciliar.jpg.asset.json";
+import careSrc from "@/assets/assistencia-domiciliar.jpg";
+const care = { url: careSrc };
 
 export function pageHead(title: string, description: string, path: string) {
   return { meta: [{ title: `${title} | Médicus24h` }, { name: "description", content: description }, { property: "og:title", content: `${title} | Médicus24h` }, { property: "og:description", content: description }, { property: "og:type", content: "website" }, { property: "og:url", content: path }, { name: "twitter:card", content: "summary_large_image" }], links: [{ rel: "canonical", href: path }] };

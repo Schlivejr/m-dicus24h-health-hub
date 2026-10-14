@@ -2,7 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Ambulance, ArrowRight, ChevronDown, Menu, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/medicus24h-logo.png.asset.json";
+import logoSrc from "@/assets/medicus24h-logo.png";
+const logo = { url: logoSrc };
 import { services, whatsapp, portal } from "@/lib/medicus-content";
 const anchors = [["Início", "/"], ["Sobre nós", "/sobre"], ["Telemedicina", "/telemedicina"], ["Contato", "/contato"]] as const;
 
