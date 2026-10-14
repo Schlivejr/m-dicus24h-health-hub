@@ -9,12 +9,18 @@ import {
   Sparkles, Stethoscope, Users, X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/medicus24h-logo.png.asset.json";
-import hero from "@/assets/banner1.jpg.asset.json";
-import ambulance from "@/assets/ambulancia.jpg.asset.json";
-import care from "@/assets/assistencia-domiciliar.jpg.asset.json";
-import protectedArea from "@/assets/area-protegida.jpg.asset.json";
-import exams from "@/assets/exames-domicilio.jpg.asset.json";
+import logoSrc from "@/assets/medicus24h-logo.png";
+const logo = { url: logoSrc };
+import heroSrc from "@/assets/banner1.jpg";
+const hero = { url: heroSrc };
+import ambulanceSrc from "@/assets/ambulancia.jpg";
+const ambulance = { url: ambulanceSrc };
+import careSrc from "@/assets/assistencia-domiciliar.jpg";
+const care = { url: careSrc };
+import protectedAreaSrc from "@/assets/area-protegida.jpg";
+const protectedArea = { url: protectedAreaSrc };
+import examsSrc from "@/assets/exames-domicilio.jpg";
+const exams = { url: examsSrc };
 
 
 

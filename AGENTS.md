@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Site is published as static HTML (prerender) to Apache/FTP: keep every public route listed in vite.config.ts `pages`, images as real files in src/assets, router trailingSlash "preserve" (prevents prerender redirect loop), and no server functions — the host cannot run server code.
