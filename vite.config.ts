@@ -28,6 +28,6 @@ export default defineConfig({
     server: { entry: "server" },
     // Every public page is rendered to static HTML at build time (static FTP hosting).
     pages: staticPages.map((path) => ({ path })),
-    prerender: { enabled: true, autoStaticPathsDiscovery: false, autoSubfolderIndex: false },
+    prerender: { enabled: true, autoStaticPathsDiscovery: false },
   },
 });
