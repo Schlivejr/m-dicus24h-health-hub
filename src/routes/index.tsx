@@ -1,184 +1,91 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import {
-  Activity, Ambulance, ArrowRight, CalendarDays, ChevronDown, Clock3,
-  HeartHandshake, MapPin, Menu, MonitorSmartphone, Phone, ShieldCheck,
-  Stethoscope, Users, X,
-} from "lucide-react";
-import { services } from "@/lib/medicus-content";
+import { ArrowRight, Ambulance, CalendarDays, CheckCircle2, ChevronDown, Clock3, HeartHandshake, MapPin, Menu, Monitor, Phone, ShieldCheck, Stethoscope, Users, X, Instagram, Facebook, Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { portal } from "@/lib/medicus-content";
 import logoSrc from "@/assets/medicus24h-logo.png";
-import protectedAreaSrc from "@/assets/area-protegida.jpg";
+import heroSrc from "@/assets/banner12.jpg";
 import ambulanceSrc from "@/assets/ambulancia.jpg";
+import protectedSrc from "@/assets/area-protegida.jpg";
 import careSrc from "@/assets/assistencia-domiciliar.jpg";
 import examsSrc from "@/assets/exames-domicilio.jpg";
 
 const whatsapp = "https://wa.me/5583994064312";
-const phone = "+558332400425";
+const phone = "tel:+558332400425";
+const serviceCards = [
+  { title: "Área Protegida", text: "Assistência médica contínua para empresas, escolas, condomínios e eventos.", image: protectedSrc, icon: ShieldCheck, href: "/servicos/area-protegida" },
+  { title: "Remoções Médicas", text: "Transporte seguro e humanizado, com equipe e equipamentos adequados.", image: ambulanceSrc, icon: Ambulance, href: "/servicos/remocao-medica" },
+  { title: "Telemedicina", text: "Atendimento médico online, com praticidade, conforto e segurança.", image: careSrc, icon: Monitor, href: "/telemedicina" },
+  { title: "Atendimento Médico", text: "Consultas e acompanhamento médico em diversas especialidades.", image: examsSrc, icon: Stethoscope, href: "/servicos" },
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Médicus24h | Soluções completas em Saúde" },
-      { name: "description", content: "Atendimento médico, remoções, telemedicina e Área Protegida para pessoas e empresas em João Pessoa e região." },
-      { property: "og:title", content: "Médicus24h | Soluções em Saúde" },
-      { property: "og:description", content: "Soluções completas em saúde para pessoas e empresas." },
+      { title: "Médicus24h | Soluções completas em saúde" },
+      { name: "description", content: "Atendimento médico, remoções, telemedicina e Área Protegida em João Pessoa e região. Fale com a equipe Médicus24h." },
+      { property: "og:title", content: "Médicus24h | Soluções completas em saúde" },
+      { property: "og:description", content: "Soluções em saúde para pessoas e empresas, com agilidade, segurança e equipe qualificada." },
       { property: "og:type", content: "website" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
   }),
   component: HomePage,
 });
 
 function HomeHeader() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-
-  return (
-    <header className="relative z-50 w-full bg-white">
-      <div className="bg-[#00545a] text-white">
-        <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-center gap-x-7 gap-y-1 px-4 py-2 text-[11px] font-semibold sm:justify-between sm:px-6 lg:px-12 lg:text-xs">
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1">
-            <a href={`tel:${phone}`} className="inline-flex items-center gap-2"><Phone className="size-3.5" />(83) 3240-0425</a>
-            <a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2"><Phone className="size-3.5" />(83) 99406-4312</a>
-            <span className="inline-flex items-center gap-2"><MapPin className="size-3.5" />João Pessoa – PB e Região</span>
-          </div>
-          <div className="hidden items-center gap-5 sm:flex">
-            <a href="https://www.instagram.com/medicus24h_/" target="_blank" rel="noreferrer">◎ medicus24h_</a>
-            <span>f&nbsp; Médicus 24 horas</span>
-          </div>
-        </div>
+  return <header className="sticky top-0 z-50 bg-white shadow-sm">
+    <div className="hidden bg-brand-deep text-white md:block">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-5 py-2 text-xs font-semibold">
+        <div className="flex flex-wrap items-center gap-5"><a href={phone} className="inline-flex items-center gap-2"><Phone className="size-4"/> (83) 3240-0425</a><a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2"><Phone className="size-4"/> (83) 99406-4312</a><span className="inline-flex items-center gap-2"><MapPin className="size-4"/> João Pessoa – PB e Região</span></div>
+        <div className="flex items-center gap-5"><a href="https://www.instagram.com/medicus24h_/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2"><Instagram className="size-4"/> medicus24h_</a><a href="https://www.facebook.com/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2"><Facebook className="size-4"/> Médicus 24 horas</a></div>
       </div>
-
-      <div className="border-b border-slate-100 shadow-sm">
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-12">
-          <Link to="/" aria-label="Médicus24h - Início" className="shrink-0">
-            <img src={logoSrc} alt="Médicus24h – Soluções em Saúde" className="h-14 w-auto object-contain sm:h-[68px]" />
-          </Link>
-          <nav className="hidden items-center gap-7 lg:flex" aria-label="Navegação principal">
-            <Link to="/" className="border-b-2 border-[#e50916] px-1 py-2 text-sm font-bold text-[#d90816]">Home</Link>
-            <div className="relative" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
-              <button type="button" onClick={() => setServicesOpen(v => !v)} aria-expanded={servicesOpen} className="inline-flex items-center gap-1 py-2 text-sm font-semibold text-slate-800 hover:text-[#007b80]">Serviços <ChevronDown className="size-4" /></button>
-              {servicesOpen && <div className="absolute left-0 top-full z-50 w-64 rounded-lg border border-slate-200 bg-white p-2 shadow-xl">
-                {services.map(([, title, , href]) => <Link key={title} to={href} onClick={() => setServicesOpen(false)} className="block rounded-md px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#007b80]">{title}</Link>)}
-              </div>}
-            </div>
-            <Link to="/servicos/area-protegida" className="py-2 text-sm font-semibold text-slate-800 hover:text-[#007b80]">Área Protegida</Link>
-            <Link to="/sobre" className="py-2 text-sm font-semibold text-slate-800 hover:text-[#007b80]">Sobre</Link>
-            <Link to="/contato" className="py-2 text-sm font-semibold text-slate-800 hover:text-[#007b80]">Contato</Link>
-          </nav>
-          <div className="hidden xl:block">
-            <a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-xl bg-[#e50916] px-5 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-[#c9000c]"><Phone className="size-4" />Solicitar Orçamento</a>
-          </div>
-          <div className="flex items-center gap-2 lg:hidden">
-            <a href={whatsapp} aria-label="Solicitar orçamento pelo WhatsApp" className="rounded-lg bg-[#e50916] p-2.5 text-white"><Phone className="size-5" /></a>
-            <button type="button" onClick={() => setMenuOpen(v => !v)} aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} className="rounded-lg border border-slate-200 p-2.5 text-slate-800">{menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}</button>
-          </div>
+    </div>
+    <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+      <Link to="/" aria-label="Médicus24h - início"><img src={logoSrc} alt="Médicus24h — Soluções em Saúde" className="h-14 w-auto object-contain sm:h-[4.5rem]"/></Link>
+      <nav className="hidden items-center gap-7 lg:flex" aria-label="Menu principal">
+        <Link to="/" className="border-b-2 border-brand-coral px-1 py-2 font-bold text-brand-deep">Home</Link>
+        <div className="relative" onMouseEnter={()=>setServicesOpen(true)} onMouseLeave={()=>setServicesOpen(false)}>
+          <button type="button" aria-expanded={servicesOpen} onClick={()=>setServicesOpen(!servicesOpen)} className="inline-flex items-center gap-1 font-semibold hover:text-primary">Serviços <ChevronDown className="size-4"/></button>
+          {servicesOpen && <div className="absolute left-0 top-full z-20 mt-3 w-60 rounded-lg border bg-white p-2 shadow-xl"><Link to="/servicos" className="block rounded px-3 py-2 text-sm hover:bg-secondary">Todas as soluções</Link>{serviceCards.map(s=><Link key={s.title} to={s.href} className="block rounded px-3 py-2 text-sm hover:bg-secondary">{s.title}</Link>)}</div>}
         </div>
-        {menuOpen && <nav className="grid gap-1 border-t border-slate-100 bg-white px-5 py-4 lg:hidden" aria-label="Menu móvel">
-          <Link to="/" onClick={() => setMenuOpen(false)} className="rounded-md px-3 py-3 font-bold text-[#d90816]">Home</Link>
-          <Link to="/servicos" onClick={() => setMenuOpen(false)} className="rounded-md px-3 py-3 font-semibold">Serviços</Link>
-          <Link to="/servicos/area-protegida" onClick={() => setMenuOpen(false)} className="rounded-md px-3 py-3 font-semibold">Área Protegida</Link>
-          <Link to="/sobre" onClick={() => setMenuOpen(false)} className="rounded-md px-3 py-3 font-semibold">Sobre</Link>
-          <Link to="/contato" onClick={() => setMenuOpen(false)} className="rounded-md px-3 py-3 font-semibold">Contato</Link>
-          <a href={whatsapp} className="mt-2 rounded-lg bg-[#e50916] px-4 py-3 text-center font-bold text-white">Solicitar Orçamento</a>
-        </nav>}
-      </div>
-    </header>
-  );
+        <Link to="/servicos/area-protegida" className="font-semibold hover:text-primary">Área Protegida</Link>
+        <Link to="/sobre" className="font-semibold hover:text-primary">Sobre</Link>
+        <Link to="/contato" className="font-semibold hover:text-primary">Contato</Link>
+      </nav>
+      <div className="hidden xl:block"><Button asChild className="bg-brand-coral text-white hover:bg-brand-coral/90"><a href={whatsapp} target="_blank" rel="noreferrer"><Phone/> Solicitar Orçamento</a></Button></div>
+      <Button variant="ghost" size="icon" className="lg:hidden" aria-label={open?"Fechar menu":"Abrir menu"} onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</Button>
+    </div>
+    {open && <nav className="grid gap-1 border-t bg-white px-5 py-4 shadow-lg lg:hidden" aria-label="Menu móvel"><Link onClick={()=>setOpen(false)} to="/" className="rounded px-3 py-3 font-semibold">Home</Link><Link onClick={()=>setOpen(false)} to="/servicos" className="rounded px-3 py-3 font-semibold">Serviços</Link><Link onClick={()=>setOpen(false)} to="/servicos/area-protegida" className="rounded px-3 py-3 font-semibold">Área Protegida</Link><Link onClick={()=>setOpen(false)} to="/sobre" className="rounded px-3 py-3 font-semibold">Sobre</Link><Link onClick={()=>setOpen(false)} to="/contato" className="rounded px-3 py-3 font-semibold">Contato</Link><a href={portal} target="_blank" rel="noreferrer" className="rounded px-3 py-3 font-semibold text-primary">Portal Médicus24h</a><Button asChild className="mt-2 bg-brand-coral text-white"><a href={whatsapp} target="_blank" rel="noreferrer">Solicitar Orçamento</a></Button></nav>}
+  </header>;
 }
 
-const serviceCards = [
-  { title: "Área Protegida", text: "Assistência médica contínua para empresas, escolas, condomínios e eventos.", image: protectedAreaSrc, href: "/servicos/area-protegida", Icon: ShieldCheck },
-  { title: "Remoções Médicas", text: "Transporte seguro e humanizado, com equipe e equipamentos adequados.", image: ambulanceSrc, href: "/servicos/remocao-medica", Icon: Ambulance },
-  { title: "Telemedicina", text: "Atendimento médico online, com praticidade, conforto e segurança.", image: careSrc, href: "/telemedicina", Icon: MonitorSmartphone },
-  { title: "Atendimento Médico", text: "Consultas e acompanhamento em diversas especialidades médicas.", image: examsSrc, href: "/servicos", Icon: Stethoscope },
-];
-
 function HomePage() {
-  return (
-    <div className="min-h-screen overflow-x-hidden bg-white text-[#102b3b]">
-      <HomeHeader />
-      <main>
-        <section id="inicio" className="relative isolate overflow-hidden bg-[#eaf7f8]">
-          <div className="mx-auto grid min-h-[420px] max-w-[1440px] grid-cols-1 lg:min-h-[420px] lg:grid-cols-[44%_56%]">
-            <div className="relative z-20 flex flex-col justify-center px-6 py-12 sm:px-10 lg:px-12 lg:py-14">
-              <h1 className="max-w-[570px] text-[2.35rem] font-extrabold leading-[1.04] tracking-tight text-[#00545a] sm:text-5xl xl:text-[3.5rem]">Soluções completas em saúde para <span className="text-[#e50916]">pessoas e empresas</span></h1>
-              <p className="mt-5 max-w-[510px] text-base leading-6 text-[#172d3c] sm:text-lg">Atendimento médico, remoções, telemedicina e Área Protegida, com agilidade, segurança e equipe qualificada.</p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                {[[ShieldCheck,"Segurança e Agilidade"],[Users,"Equipe Especializada"],[Clock3,"Suporte Contínuo"]].map(([Icon,label]) => <div key={label as string} className="flex items-center gap-2 rounded-xl border border-[#d9e7e9] bg-white/90 px-3 py-2.5 text-xs font-bold text-[#00545a] shadow-sm"><Icon className="size-7 shrink-0 text-[#00858a]" /><span className="max-w-[92px] leading-tight">{label as string}</span></div>)}
-              </div>
-              <a href={whatsapp} target="_blank" rel="noreferrer" className="mt-7 inline-flex w-fit items-center gap-3 rounded-full bg-[#e50916] px-7 py-3.5 text-lg font-extrabold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-[#c9000c]"><Phone className="size-6" />Fale com a nossa equipe</a>
-            </div>
-            <div className="relative min-h-[300px] overflow-hidden lg:min-h-[420px]">
-              <div className="absolute -left-16 top-0 z-10 h-full w-36 -skew-x-[28deg] bg-[#e50916] sm:-left-20 sm:w-44" />
-              <img src="/images/hero-medicus24h.png" alt="Profissional da Médicus24h com equipe e ambulância em atendimento" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover object-center" />
-            </div>
-          </div>
-        </section>
+  return <div className="min-h-screen bg-white text-slate-900"><HomeHeader/><main>
+    <section id="inicio" className="relative isolate overflow-hidden bg-brand-soft">
+      <div className="absolute inset-0"><img src={heroSrc} alt="" fetchPriority="high" className="h-full w-full object-cover object-center"/><div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/10"/></div>
+      <div className="relative mx-auto grid min-h-[520px] max-w-7xl items-center px-5 py-16 sm:px-8 lg:grid-cols-[.95fr_1.05fr]">
+        <div className="max-w-xl py-5"><p className="mb-4 text-xs font-extrabold uppercase tracking-[.18em] text-primary">Médicus24h — Soluções em Saúde</p><h1 className="text-4xl font-extrabold leading-[1.08] text-brand-deep sm:text-5xl lg:text-[3.5rem]">Soluções completas em saúde para <span className="text-brand-coral">pessoas e empresas</span></h1><p className="mt-5 max-w-lg text-lg leading-7 text-slate-700">Atendimento médico, remoções, telemedicina e Área Protegida, com agilidade, segurança e equipe qualificada.</p>
+          <div className="mt-6 flex flex-wrap gap-3"><span className="flex items-center gap-2 rounded-xl border bg-white/90 px-4 py-3 text-sm font-bold shadow-sm"><ShieldCheck className="size-6 text-primary"/> Segurança<br/>e Agilidade</span><span className="flex items-center gap-2 rounded-xl border bg-white/90 px-4 py-3 text-sm font-bold shadow-sm"><Users className="size-6 text-primary"/> Equipe<br/>Especializada</span><span className="flex items-center gap-2 rounded-xl border bg-white/90 px-4 py-3 text-sm font-bold shadow-sm"><Clock3 className="size-6 text-primary"/> Suporte<br/>Contínuo</span></div>
+          <Button asChild size="lg" className="mt-7 rounded-full bg-brand-coral px-8 py-6 text-lg font-extrabold text-white shadow-md hover:bg-brand-coral/90"><a href={whatsapp} target="_blank" rel="noreferrer"><Phone/> Fale com a nossa equipe</a></Button>
+        </div>
+        <div className="hidden min-h-[420px] lg:block" aria-hidden="true"/>
+      </div>
+    </section>
 
-        <section id="servicos" className="px-4 py-8 sm:px-6 sm:py-10 lg:px-10">
-          <div className="mx-auto max-w-[1320px]">
-            <div className="text-center">
-              <h2 className="text-3xl font-extrabold tracking-tight text-[#00545a] sm:text-4xl">Nossas Soluções em Saúde</h2>
-              <span className="mx-auto mt-3 block h-1 w-16 rounded-full bg-[#e50916]" />
-              <p className="mt-3 text-sm text-slate-700 sm:text-base">Estrutura, tecnologia e equipe preparada para um atendimento de excelência.</p>
-            </div>
-            <div className="mt-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-              {serviceCards.map(({title,text,image,href,Icon}) => <article key={title} className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_4px_18px_rgba(0,65,75,.09)] transition duration-300 hover:-translate-y-1 hover:shadow-lg">
-                <Link to={href} className="relative block aspect-[16/9] overflow-hidden">
-                  <img src={image} alt={title} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-                  <span className="absolute bottom-[-18px] left-5 grid size-12 place-items-center rounded-full border-2 border-white bg-[#e50916] text-white shadow-md"><Icon className="size-6" /></span>
-                </Link>
-                <div className="flex flex-1 flex-col px-5 pb-5 pt-6">
-                  <h3 className="text-xl font-extrabold text-[#102b3b]">{title}</h3>
-                  <p className="mt-2 flex-1 text-sm leading-5 text-slate-700">{text}</p>
-                  <Link to={href} className="mt-4 inline-flex w-fit items-center justify-center gap-2 rounded-full border border-[#e50916] px-6 py-2 text-sm font-extrabold text-[#c9000c] transition hover:bg-[#e50916] hover:text-white">Saiba mais <ArrowRight className="size-4" /></Link>
-                </div>
-              </article>)}
-            </div>
-          </div>
-        </section>
+    <section id="servicos" className="px-4 py-16 sm:px-6 lg:py-20"><div className="mx-auto max-w-7xl"><div className="mb-9 text-center"><h2 className="text-3xl font-extrabold text-brand-deep sm:text-4xl">Nossas Soluções em Saúde</h2><div className="mx-auto mt-3 h-1 w-16 rounded-full bg-brand-coral"/><p className="mt-4 text-base text-slate-600 sm:text-lg">Estrutura, tecnologia e equipe preparada para um atendimento de excelência.</p></div>
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">{serviceCards.map(({title,text,image,icon:Icon,href})=><article key={title} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"><div className="relative h-40 overflow-hidden"><img src={image} alt={title} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"/><span className="absolute -bottom-5 left-5 grid size-12 place-items-center rounded-full border-4 border-white bg-brand-coral text-white"><Icon className="size-6"/></span></div><div className="p-5 pt-7"><h3 className="text-xl font-extrabold text-brand-deep">{title}</h3><p className="mt-2 min-h-[4.5rem] text-sm leading-6 text-slate-700">{text}</p><Link to={href} className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full border border-brand-coral px-4 py-2 text-sm font-extrabold text-brand-coral transition-colors hover:bg-brand-coral hover:text-white">Saiba mais <ArrowRight className="size-4"/></Link></div></article>)}</div>
+    </div></section>
 
-        <section className="relative overflow-hidden bg-[#00545a] text-white">
-          <div className="grid min-h-[190px] lg:grid-cols-[32%_68%]">
-            <div className="relative min-h-[170px] overflow-hidden lg:min-h-[190px]">
-              <img src={careSrc} alt="Profissional de saúde da equipe Médicus24h" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center" />
-              <div className="absolute inset-y-0 right-[-25px] w-12 skew-x-[-25deg] bg-[#e50916]" />
-            </div>
-            <div className="flex flex-col justify-center px-6 py-8 sm:px-10 lg:px-12">
-              <h2 className="text-center text-2xl font-extrabold sm:text-3xl lg:text-left lg:text-4xl">Por que escolher a Médicus24h?</h2>
-              <div className="mt-6 grid grid-cols-2 gap-y-5 sm:grid-cols-4">
-                {[[HeartHandshake,"Atendimento Humanizado"],[Clock3,"Agilidade na Resposta"],[Activity,"Qualidade e Segurança"],[MapPin,"Cobertura em João Pessoa e Região"]].map(([Icon,label],i) => <div key={label as string} className={`flex flex-col items-center justify-center px-3 text-center ${i%2===1?"sm:border-l sm:border-white/50":""} ${i>1?"sm:border-l sm:border-white/50":""}`}><Icon className="size-8 sm:size-9" /><p className="mt-2 max-w-[150px] text-sm font-bold leading-tight sm:text-base">{label as string}</p></div>)}
-              </div>
-            </div>
-          </div>
-        </section>
+    <section className="overflow-hidden bg-brand-deep text-white"><div className="mx-auto grid max-w-7xl items-stretch lg:grid-cols-[.65fr_1.35fr]"><div className="relative min-h-52 overflow-hidden"><img src={careSrc} alt="Profissional de saúde Médicus24h" loading="lazy" className="h-full w-full object-cover"/><div className="absolute inset-y-0 right-0 w-10 skew-x-[-15deg] bg-brand-coral translate-x-5"/></div><div className="px-6 py-12 sm:px-10 lg:py-14"><h2 className="text-3xl font-extrabold sm:text-4xl">Por que escolher a Médicus24h?</h2><div className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">{([[HeartHandshake,"Atendimento","Humanizado"],[Clock3,"Agilidade","na Resposta"],[CheckCircle2,"Qualidade","e Segurança"],[MapPin,"Cobertura em","João Pessoa e Região"]] as const).map(([Icon,a,b])=><div key={a as string} className="flex flex-col items-center border-white/30 px-2 text-center md:border-r last:border-0"><Icon className="size-9"/><p className="mt-3 font-extrabold">{a as string}<br/>{b as string}</p></div>)}</div></div></div></section>
 
-        <section className="px-4 py-9 sm:px-6 sm:py-12 lg:px-10">
-          <div className="mx-auto grid max-w-[1320px] items-center gap-8 lg:grid-cols-[.9fr_1.1fr]">
-            <div className="px-1 sm:px-3">
-              <h2 className="text-3xl font-extrabold text-[#00545a] sm:text-4xl">A Médicus24h</h2>
-              <span className="mt-3 block h-1 w-16 rounded-full bg-[#e50916]" />
-              <p className="mt-4 max-w-xl text-[15px] leading-6 text-slate-800">Somos uma empresa de soluções em saúde, com foco em atendimento médico de qualidade, segurança e agilidade. Atuamos na assistência à saúde de pessoas e empresas, com uma estrutura moderna, equipe qualificada e compromisso com a vida.</p>
-              <Link to="/sobre" className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#e50916] px-7 py-2.5 text-sm font-extrabold text-[#c9000c] transition hover:bg-[#e50916] hover:text-white">Conheça nossa história <ArrowRight className="size-4" /></Link>
-            </div>
-            <div className="overflow-hidden rounded-[28px]">
-              <img src={ambulanceSrc} alt="Veículo de atendimento da Médicus24h" loading="lazy" className="aspect-[16/7] w-full object-cover" />
-            </div>
-          </div>
-        </section>
+    <section id="sobre" className="px-4 py-16 sm:px-6 lg:py-20"><div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2"><div><h2 className="text-3xl font-extrabold text-brand-deep sm:text-4xl">A Médicus24h</h2><div className="mt-3 h-1 w-16 rounded-full bg-brand-coral"/><p className="mt-5 text-base leading-7 text-slate-700">Somos uma empresa de soluções em saúde, com foco em atendimento médico de qualidade, segurança e agilidade. Atuamos na assistência à saúde de pessoas e empresas, com uma estrutura moderna, equipe qualificada e compromisso com a vida.</p><Button asChild variant="outline" className="mt-6 rounded-full border-brand-coral px-7 font-bold text-brand-coral hover:bg-brand-coral hover:text-white"><Link to="/sobre">Conheça nossa história <ArrowRight/></Link></Button></div><img src={ambulanceSrc} alt="Ambulância Médicus24h" loading="lazy" className="aspect-[16/8] w-full rounded-3xl object-cover shadow-lg"/></div></section>
 
-        <section className="bg-[#e50916] px-4 py-6 text-white sm:px-6 lg:px-10">
-          <div className="mx-auto flex max-w-[1320px] flex-col items-center justify-between gap-5 sm:flex-row">
-            <div className="flex items-center gap-4"><CalendarDays className="size-10 shrink-0 sm:size-12" /><h2 className="max-w-xl text-xl font-extrabold leading-tight sm:text-2xl">Precisa de uma solução em saúde para sua empresa ou evento?</h2></div>
-            <div className="flex flex-col items-center gap-4 sm:flex-row"><p className="max-w-[230px] text-sm leading-5">Fale com a nossa equipe e receba uma proposta personalizada.</p><a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-7 py-3 text-base font-extrabold text-[#c9000c] shadow-sm transition hover:bg-slate-100"><Phone className="size-5" />Solicitar Orçamento</a></div>
-          </div>
-        </section>
-      </main>
-      <footer className="bg-[#00464c] px-4 py-6 text-center text-sm text-white/80">
-        <p>© {new Date().getFullYear()} Médicus24h – Soluções em Saúde. Todos os direitos reservados.</p>
-      </footer>
-      <a href={whatsapp} target="_blank" rel="noreferrer" aria-label="Fale com a Médicus24h pelo WhatsApp" className="fixed bottom-5 right-5 z-40 grid size-14 place-items-center rounded-full bg-[#e50916] text-white shadow-xl transition hover:scale-105"><Phone className="size-6" /></a>
-    </div>
-  );
+    <section className="px-4 pb-12 sm:px-6"><div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 rounded-2xl bg-brand-coral px-6 py-8 text-white sm:px-10 lg:flex-row"><div className="flex items-center gap-4"><CalendarDays className="size-12 shrink-0"/><h2 className="text-2xl font-extrabold leading-tight sm:text-3xl">Precisa de uma solução em saúde<br className="hidden sm:block"/> para sua empresa ou evento?</h2></div><div className="flex items-center gap-5"><p className="hidden max-w-xs border-l border-white/60 pl-5 text-sm leading-6 lg:block">Fale com a nossa equipe e receba uma proposta personalizada.</p><Button asChild size="lg" className="shrink-0 rounded-full bg-white px-7 font-extrabold text-brand-coral hover:bg-white/90"><a href={whatsapp} target="_blank" rel="noreferrer"><Phone/> Solicitar Orçamento</a></Button></div></div></section>
+
+    <section id="contato" className="border-t border-slate-200 px-4 py-10 sm:px-6"><div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-5 text-sm text-slate-700"><div><strong className="text-brand-deep">Médicus24h — Soluções em Saúde</strong><p className="mt-1">João Pessoa – PB e Região</p></div><div className="flex flex-wrap gap-5"><a href={phone} className="inline-flex items-center gap-2"><Phone className="size-4 text-primary"/> (83) 3240-0425</a><a href={whatsapp} className="inline-flex items-center gap-2"><Phone className="size-4 text-primary"/> (83) 99406-4312</a><a href="mailto:contato@medicus24h.com.br" className="inline-flex items-center gap-2"><Mail className="size-4 text-primary"/> E-mail</a></div></div></section>
+  </main>
+  <footer className="bg-brand-deep px-5 py-8 text-center text-sm text-white/80"><img src={logoSrc} alt="Médicus24h" className="mx-auto mb-4 h-12 rounded bg-white p-1"/><p>© 2026 Médicus24h. Todos os direitos reservados.</p><p className="mt-1">Cuidado, segurança e proximidade.</p></footer>
+  <a href={whatsapp} target="_blank" rel="noreferrer" aria-label="Fale com a Médicus24h pelo WhatsApp" className="fixed bottom-5 right-5 z-40 grid size-14 place-items-center rounded-full bg-brand-coral text-white shadow-xl hover:scale-105"><Phone className="size-6"/></a></div>;
 }
