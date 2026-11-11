@@ -83,28 +83,23 @@ function HomePage() {
   return <div className="min-h-screen bg-white text-foreground">
     <SiteHeader />
     <main>
-      <section className="relative isolate overflow-hidden bg-gradient-to-br from-white via-brand-soft to-white">
-        <div className="pointer-events-none absolute -left-28 top-10 size-80 rounded-full bg-primary/5 blur-3xl" />
-        <div className="mx-auto grid min-h-[540px] max-w-7xl items-center gap-8 px-5 py-10 lg:grid-cols-[.94fr_1.06fr] lg:gap-5 lg:px-8 lg:py-0">
-          <div className="relative z-20 py-4 lg:py-12">
-            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-white/85 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-[.14em] text-primary shadow-sm"><span className="size-2 rounded-full bg-brand-coral" />Médicus24h <span className="text-muted-foreground">|</span> Soluções em Saúde</p>
-            <h1 className="max-w-[570px] text-[2.45rem] font-extrabold leading-[1.06] tracking-tight text-brand-deep sm:text-5xl xl:text-[3.55rem]">Cuidado e saúde para <span className="text-brand-coral">pessoas, empresas e eventos.</span></h1>
-            <p className="mt-5 max-w-[490px] text-base leading-7 text-foreground/90 sm:text-lg">Atendimento médico, remoções, telemedicina e Área Protegida com agilidade, segurança e uma equipe preparada para cuidar de você.</p>
-            <div className="mt-7 grid max-w-[490px] grid-cols-3 gap-2.5">
-              {([[ShieldCheck,"Segurança","e agilidade"],[Users,"Equipe","especializada"],[Clock3,"Suporte","contínuo"]] as const).map(([Icon,line1,line2]) => <div key={line1 as string} className="flex min-h-[76px] flex-col items-center justify-center gap-1.5 rounded-2xl border border-primary/15 bg-white/90 px-2 py-3 text-center shadow-[0_5px_18px_rgba(0,75,83,.07)] sm:flex-row sm:gap-2 sm:text-left"><Icon className="size-6 shrink-0 text-primary" /><span className="text-[11px] font-extrabold leading-tight text-brand-deep sm:text-xs">{line1 as string}<br />{line2 as string}</span></div>)}
+      <section className="relative isolate overflow-hidden bg-gradient-to-r from-[#f4fbfb] via-[#e8f6f7] to-[#d9f0f1]">
+        <div className="mx-auto grid min-h-[500px] max-w-7xl items-center px-5 lg:grid-cols-[.92fr_1.08fr] lg:gap-3 lg:px-8">
+          <div className="relative z-20 py-12 lg:py-14">
+            <p className="mb-4 text-xs font-extrabold uppercase tracking-[.15em] text-primary">Médicus24h | Soluções em Saúde</p>
+            <h1 className="max-w-[540px] text-[2.55rem] font-extrabold leading-[1.04] tracking-tight text-brand-deep sm:text-5xl xl:text-[3.55rem]">Soluções completas em saúde para <span className="text-brand-coral">pessoas e empresas.</span></h1>
+            <p className="mt-5 max-w-[470px] text-base leading-7 text-brand-deep sm:text-lg">Atendimento médico, remoções, telemedicina e Área Protegida, com agilidade, segurança e equipe qualificada.</p>
+            <div className="mt-6 flex max-w-[470px] flex-wrap gap-2.5">
+              {([[ShieldCheck,"Segurança","e Agilidade"],[Users,"Equipe","Especializada"],[Clock3,"Suporte","Contínuo"]] as const).map(([Icon,line1,line2]) => <div key={line1 as string} className="flex min-h-[58px] items-center gap-2 rounded-xl border border-primary/15 bg-white/85 px-3 py-2 shadow-sm"><Icon className="size-6 shrink-0 text-primary" /><span className="text-[11px] font-extrabold leading-tight text-brand-deep">{line1 as string}<br />{line2 as string}</span></div>)}
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 rounded-full bg-brand-coral px-7 py-4 text-base font-extrabold text-white shadow-[0_10px_24px_rgba(210,25,35,.22)] transition hover:-translate-y-1 hover:shadow-xl sm:text-lg"><MessageCircle className="size-6" />Fale com a nossa equipe <ArrowRight className="size-4" /></a>
-              <span className="hidden text-xs font-semibold leading-5 text-muted-foreground sm:block">Atendimento em João Pessoa<br />e região</span>
-            </div>
+            <a href={whatsapp} target="_blank" rel="noreferrer" className="mt-7 inline-flex items-center gap-3 rounded-full bg-brand-coral px-7 py-3.5 text-base font-extrabold text-white shadow-md transition hover:-translate-y-0.5 hover:shadow-lg sm:text-lg"><MessageCircle className="size-6" />Fale com a nossa equipe</a>
           </div>
-          <div className="relative -mx-5 min-h-[330px] overflow-hidden sm:mx-0 lg:my-8 lg:min-h-[500px] lg:overflow-visible">
-            <div className="absolute bottom-3 right-2 top-3 w-[88%] rounded-[42%_2rem_2rem_42%] bg-brand-coral sm:right-0 lg:bottom-0 lg:right-2 lg:top-0" />
-            <div className="absolute bottom-0 right-0 top-0 w-[94%] overflow-hidden rounded-[38%_1.5rem_1.5rem_38%] border-[6px] border-white shadow-[0_22px_55px_rgba(0,65,72,.18)] sm:w-[92%] lg:w-[96%]">
-              <img src={hero} alt="Profissional de saúde e equipe de atendimento móvel em cenário de assistência médica" fetchPriority="high" className="h-full min-h-[330px] w-full object-cover object-[54%_center] lg:min-h-[500px]" />
-              <div className="absolute inset-0 bg-gradient-to-r from-brand-deep/10 via-transparent to-brand-deep/5" />
+          <div className="relative -mx-5 min-h-[350px] overflow-hidden sm:mx-0 lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:w-[55%] lg:min-h-0">
+            <div className="absolute inset-y-0 left-0 z-10 w-[18%] -skew-x-[27deg] bg-brand-coral lg:-left-10 lg:w-[20%]" />
+            <div className="absolute inset-y-0 left-[5%] right-0 overflow-hidden rounded-l-[42%] border-l-[7px] border-white/90 shadow-[-18px_0_35px_rgba(0,65,72,.10)] lg:left-[4%]">
+              <img src={ambulance} alt="Ambulância e equipe de atendimento móvel da Médicus24h" fetchPriority="high" className="h-full min-h-[350px] w-full object-cover object-center lg:min-h-0" />
+              <div className="absolute inset-0 bg-gradient-to-r from-brand-deep/10 via-transparent to-transparent" />
             </div>
-            <div className="absolute bottom-5 left-7 z-10 hidden items-center gap-3 rounded-2xl border border-white/70 bg-white/95 px-4 py-3 shadow-xl sm:flex lg:-left-3 lg:bottom-8"><span className="grid size-10 place-items-center rounded-full bg-brand-soft text-primary"><HeartHandshake className="size-5" /></span><span className="text-xs font-extrabold leading-4 text-brand-deep">Cuidado humanizado<br />em cada atendimento</span></div>
           </div>
         </div>
       </section>
