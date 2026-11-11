@@ -4,7 +4,7 @@ import { ArrowRight, Ambulance, CalendarDays, CheckCircle2, ChevronDown, Clock3,
 import { Button } from "@/components/ui/button";
 import { portal } from "@/lib/medicus-content";
 import logoSrc from "@/assets/medicus24h-logo.png";
-import heroSrc from "@/assets/banner12.jpg";
+const heroSrc = "/images/hero-medicus24h.png";
 import ambulanceSrc from "@/assets/ambulancia.jpg";
 import protectedSrc from "@/assets/area-protegida.jpg";
 import careSrc from "@/assets/assistencia-domiciliar.jpg";
