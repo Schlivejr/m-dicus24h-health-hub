@@ -5,13 +5,14 @@ import { ArrowRight, Ambulance, CalendarDays, ChevronDown, Clock3, Facebook, Hea
 import { Button } from "@/components/ui/button";
 import logoSrc from "@/assets/medicus24h-logo.png";
 import heroSrc from "@/assets/banner1.jpg";
+import ambulanceSrc from "@/assets/ambulancia.jpg";
 import careSrc from "@/assets/assistencia-domiciliar.jpg";
 import protectedAreaSrc from "@/assets/area-protegida.jpg";
 import examsSrc from "@/assets/exames-domicilio.jpg";
 
 const logo = logoSrc;
 const hero = heroSrc;
-const ambulance = "/hero-medicus24h.jpg";
+const ambulance = ambulanceSrc;
 const care = careSrc;
 const protectedArea = protectedAreaSrc;
 const exams = examsSrc;
@@ -96,7 +97,7 @@ function HomePage() {
           <div className="relative -mx-5 min-h-[350px] overflow-hidden sm:mx-0 lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:w-[55%] lg:min-h-0">
             <div className="absolute inset-y-0 left-0 z-10 w-[18%] -skew-x-[27deg] bg-brand-coral lg:-left-10 lg:w-[20%]" />
             <div className="absolute inset-y-0 left-[5%] right-0 overflow-hidden rounded-l-[42%] border-l-[7px] border-white/90 shadow-[-18px_0_35px_rgba(0,65,72,.10)] lg:left-[4%]">
-              <img src={ambulance} alt="Ambulância e equipe de atendimento móvel da Médicus24h" fetchPriority="high" className="h-full min-h-[350px] w-full object-cover object-center lg:min-h-0" />
+              <img src={hero} alt="Profissional da equipe Médicus24h em primeiro plano, com ambulância e equipe de atendimento ao fundo" fetchPriority="high" className="h-full min-h-[350px] w-full object-cover object-center lg:min-h-0" />
               <div className="absolute inset-0 bg-gradient-to-r from-brand-deep/10 via-transparent to-transparent" />
             </div>
           </div>
