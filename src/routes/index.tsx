@@ -5,14 +5,13 @@ import { ArrowRight, Ambulance, CalendarDays, ChevronDown, Clock3, Facebook, Hea
 import { Button } from "@/components/ui/button";
 import logoSrc from "@/assets/medicus24h-logo.png";
 import heroSrc from "@/assets/banner1.jpg";
-import ambulanceSrc from "@/assets/ambulancia.jpg";
 import careSrc from "@/assets/assistencia-domiciliar.jpg";
 import protectedAreaSrc from "@/assets/area-protegida.jpg";
 import examsSrc from "@/assets/exames-domicilio.jpg";
 
 const logo = logoSrc;
 const hero = heroSrc;
-const ambulance = ambulanceSrc;
+const ambulance = "/hero-medicus24h.jpg";
 const care = careSrc;
 const protectedArea = protectedAreaSrc;
 const exams = examsSrc;
