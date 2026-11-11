@@ -1,5 +1,4 @@
-
-name: Deploy Lovable via FTP na HostGator
+name: Deploy Médicus24h via FTP na HostGator
 
 on:
   push:
@@ -22,38 +21,74 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
-      - name: Build do projeto
+      - name: Build do projeto (gera HTML estático por pré-renderização)
         run: npm run build
 
-      - name: Verificar saída pública
+      # Fora da Lovable, o Nitro grava a saída em .output/.
+      # As páginas pré-renderizadas ficam em .output/public/<rota>/index.html.
+      - name: Verificar páginas HTML geradas
         shell: bash
         run: |
+          OUT=.output/public
           echo "Páginas estáticas geradas:"
-          find dist/client -name '*.html'
+          find "$OUT" -name '*.html' | sort || true
 
-          if [ -f dist/client/index.html ] && [ -f dist/client/sobre/index.html ]; then
-            echo "DEPLOY_DIR=dist/client" >> "$GITHUB_ENV"
-            echo "Saída estática encontrada."
-          else
-            echo "ERRO: páginas estáticas não foram geradas em dist/client."
+          ROUTES="/ /sobre /contato /telemedicina /servicos \
+            /servicos/area-protegida /servicos/cartao-de-beneficios \
+            /servicos/cobertura-de-eventos /servicos/exames-domicilio \
+            /servicos/fisioterapia-domiciliar /servicos/pronto-atendimento-domiciliar \
+            /servicos/remocao-medica"
+
+          MISSING=0
+          for r in $ROUTES; do
+            f="$OUT${r%/}/index.html"
+            if [ ! -s "$f" ] || ! grep -aq '<title>' "$f"; then
+              echo "ERRO: página não pré-renderizada: $r ($f)"
+              MISSING=1
+            fi
+          done
+          if [ "$MISSING" -ne 0 ]; then
+            echo "ERRO: a pré-renderização não gerou todas as páginas públicas."
             exit 1
           fi
+          echo "DEPLOY_DIR=$OUT" >> "$GITHUB_ENV"
+          echo "Todas as páginas públicas foram geradas."
 
-      - name: Adicionar .htaccess
+      - name: Adicionar .htaccess (Apache)
         run: |
-          cat > dist/client/.htaccess <<'EOF'
-          DirectoryIndex index.html index.php
+          rm -f "$DEPLOY_DIR/_headers"
+          cat > "$DEPLOY_DIR/.htaccess" <<'EOF'
+          DirectoryIndex index.html
+          DirectorySlash Off
+
           RewriteEngine On
           RewriteBase /
-          RewriteRule ^index\.html$ - [L]
+
+          # /sobre -> /sobre/index.html (sem redirecionar)
+          RewriteCond %{REQUEST_FILENAME} !-f
+          RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+          RewriteRule ^(.+?)/?$ /$1/index.html [L]
+
+          # Endereço inexistente -> página inicial (o site mostra a tela "não encontrada")
           RewriteCond %{REQUEST_FILENAME} !-f
           RewriteCond %{REQUEST_FILENAME} !-d
           RewriteRule . /index.html [L]
+
+          <IfModule mod_expires.c>
+            ExpiresActive On
+            ExpiresByType text/html "access plus 0 seconds"
+            ExpiresByType application/javascript "access plus 1 year"
+            ExpiresByType text/css "access plus 1 year"
+            ExpiresByType image/jpeg "access plus 1 year"
+            ExpiresByType image/png "access plus 1 year"
+          </IfModule>
           EOF
 
       - name: Mostrar arquivos que serão publicados
-        run: ls -la dist/client/
+        run: ls -laR "$DEPLOY_DIR" | head -100
 
+      # Envia somente a pasta pública. A pasta .output/server não é enviada:
+      # a HostGator compartilhada não executa o servidor Nitro.
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -61,7 +96,7 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
           server-dir: /public_html/
-          local-dir: dist/client/
+          local-dir: .output/public/
           protocol: ftp
           port: 21
           dangerous-clean-slate: false
