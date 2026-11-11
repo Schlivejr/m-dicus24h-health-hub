@@ -2,16 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header, Footer } from "@/components/medicus-shell";
 import { services, whatsapp } from "@/lib/medicus-content";
 import {
-  Activity, Ambulance, ArrowRight, Award, Building2, CalendarDays, ChevronDown,
-  CircleCheck, Clock3, Cross, Dumbbell, FlaskConical, HeartHandshake, House,
-  Mail, MapPin, Menu, MonitorSmartphone, Phone, Quote, School, ShieldCheck,
-  Sparkles, Stethoscope, Users, X,
+  Activity, Ambulance, ArrowRight, Award, Building2, CalendarDays,
+  CircleCheck, Clock3, HeartHandshake, House, Mail, MapPin,
+  MonitorSmartphone, Phone, School, ShieldCheck, Sparkles, Stethoscope, Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logoSrc from "@/assets/medicus24h-logo.png";
-const logo = { url: logoSrc };
-import heroSrc from "@/assets/banner1.jpg";
-const hero = { url: heroSrc };
 import ambulanceSrc from "@/assets/ambulancia.jpg";
 const ambulance = { url: ambulanceSrc };
 import careSrc from "@/assets/assistencia-domiciliar.jpg";
