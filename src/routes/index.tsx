@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Footer } from "@/components/medicus-shell";
-import { whatsapp as defaultWhatsapp } from "@/lib/medicus-content";
 import { ArrowRight, Ambulance, CalendarDays, ChevronDown, Clock3, Facebook, HeartHandshake, Instagram, MapPin, Menu, MessageCircle, Phone, ShieldCheck, Stethoscope, Users, X, MonitorSmartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoSrc from "@/assets/medicus24h-logo.png";
@@ -91,7 +90,7 @@ function HomePage() {
             <h1 className="max-w-xl text-4xl font-extrabold leading-[1.08] text-brand-deep sm:text-5xl xl:text-[3.6rem]">Soluções completas em saúde para <span className="text-brand-coral">pessoas e empresas</span></h1>
             <p className="mt-5 max-w-lg text-base leading-7 text-foreground sm:text-lg">Atendimento médico, remoções, telemedicina e Área Protegida, com agilidade, segurança e equipe qualificada.</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              {[[ShieldCheck,"Segurança e Agilidade"],[Users,"Equipe Especializada"],[Clock3,"Suporte Contínuo"]].map(([Icon,label]) => <div key={label as string} className="flex items-center gap-2 rounded-xl border border-border bg-white/90 px-3 py-2.5 text-xs font-bold text-brand-deep shadow-sm"><Icon className="size-6 shrink-0 text-primary" />{label as string}</div>)}
+              {([[ShieldCheck,"Segurança e Agilidade"],[Users,"Equipe Especializada"],[Clock3,"Suporte Contínuo"]] as const).map(([Icon,label]) => <div key={label as string} className="flex items-center gap-2 rounded-xl border border-border bg-white/90 px-3 py-2.5 text-xs font-bold text-brand-deep shadow-sm"><Icon className="size-6 shrink-0 text-primary" />{label as string}</div>)}
             </div>
             <a href={whatsapp} target="_blank" rel="noreferrer" className="mt-7 inline-flex items-center gap-3 rounded-full bg-brand-coral px-7 py-4 text-lg font-extrabold text-white shadow-lg transition hover:-translate-y-1 hover:shadow-xl"><MessageCircle className="size-6" />Fale com a nossa equipe</a>
           </div>
@@ -121,7 +120,7 @@ function HomePage() {
           <div className="px-5 py-10 sm:px-8 lg:px-12">
             <h2 className="text-center text-3xl font-extrabold sm:text-4xl">Por que escolher a Médicus24h?</h2>
             <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-4">
-              {[[HeartHandshake,"Atendimento","Humanizado"],[Clock3,"Agilidade","na Resposta"],[ShieldCheck,"Qualidade","e Segurança"],[MapPin,"Cobertura em","João Pessoa e Região"]].map(([Icon,line1,line2]) => <div key={line1 as string} className="flex flex-col items-center text-center"><Icon className="size-9" /><p className="mt-3 text-sm font-extrabold leading-5">{line1 as string}<br/>{line2 as string}</p></div>)}
+              {([[HeartHandshake,"Atendimento","Humanizado"],[Clock3,"Agilidade","na Resposta"],[ShieldCheck,"Qualidade","e Segurança"],[MapPin,"Cobertura em","João Pessoa e Região"]] as const).map(([Icon,line1,line2]) => <div key={line1 as string} className="flex flex-col items-center text-center"><Icon className="size-9" /><p className="mt-3 text-sm font-extrabold leading-5">{line1 as string}<br/>{line2 as string}</p></div>)}
             </div>
           </div>
         </div>
