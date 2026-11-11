@@ -1,87 +1,147 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Header, Footer } from "@/components/medicus-shell";
-import { Statistics, Testimonials } from "@/components/medicus-editorial";
-import { services, whatsapp } from "@/lib/medicus-content";
-import {
-  Activity, Ambulance, ArrowRight, Award, Building2, CalendarDays, ChevronDown,
-  CircleCheck, Clock3, Cross, Dumbbell, FlaskConical, HeartHandshake, House,
-  Mail, MapPin, Menu, MonitorSmartphone, Phone, Quote, School, ShieldCheck,
-  Sparkles, Stethoscope, Users, X,
-} from "lucide-react";
+import { useState } from "react";
+import { Footer } from "@/components/medicus-shell";
+import { ArrowRight, Ambulance, CalendarDays, ChevronDown, Clock3, Facebook, HeartHandshake, Instagram, MapPin, Menu, MessageCircle, Phone, ShieldCheck, Stethoscope, Users, X, MonitorSmartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoSrc from "@/assets/medicus24h-logo.png";
-const logo = { url: logoSrc };
 import heroSrc from "@/assets/banner1.jpg";
-const hero = { url: heroSrc };
-import ambulanceSrc from "@/assets/ambulancia.jpg";
-const ambulance = { url: ambulanceSrc };
 import careSrc from "@/assets/assistencia-domiciliar.jpg";
-const care = { url: careSrc };
 import protectedAreaSrc from "@/assets/area-protegida.jpg";
-const protectedArea = { url: protectedAreaSrc };
 import examsSrc from "@/assets/exames-domicilio.jpg";
-const exams = { url: examsSrc };
 
-
+const logo = logoSrc;
+const hero = heroSrc;
+const ambulance = "/hero-medicus24h.jpg";
+const care = careSrc;
+const protectedArea = protectedAreaSrc;
+const exams = examsSrc;
+const whatsapp = "https://wa.me/5583994064312";
+const phone = "tel:+558332400425";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Médicus24h | Soluções em Saúde" },
-      { name: "description", content: "Cuidamos da sua saúde com soluções completas em atendimento médico, remoção, telemedicina, exames a domicílio, área protegida e muito mais." },
+      { title: "Médicus24h | Soluções completas em Saúde" },
+      { name: "description", content: "Soluções em saúde para pessoas e empresas: Área Protegida, remoções médicas, telemedicina e atendimento médico em João Pessoa e região." },
       { property: "og:title", content: "Médicus24h | Soluções em Saúde" },
-      { property: "og:description", content: "Soluções completas em saúde, com atendimento humanizado, segurança e agilidade." },
+      { property: "og:description", content: "Atendimento médico, remoções, telemedicina e Área Protegida com agilidade, segurança e equipe qualificada." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
-      { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
-    scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "MedicalBusiness", name: "Médicus24h – Soluções em Saúde", telephone: "+55 83 3340-0425", email: "contato@medicus24h.com.br", address: { "@type": "PostalAddress", streetAddress: "Rua Quintino Bocaiúva, 739, Torre", addressLocality: "João Pessoa", addressRegion: "PB", addressCountry: "BR" } }) }],
   }),
   component: HomePage,
 });
 
-function SectionHead({ eyebrow, title, text, light=false }: { eyebrow?: string; title: string; text?: string; light?: boolean }) {
-  return <div className="mb-10 max-w-2xl"><p className={`mb-3 text-xs font-extrabold uppercase tracking-widest ${light ? "text-primary-foreground/75" : "text-primary"}`}>{eyebrow}</p><h2 className={`text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl ${light ? "text-primary-foreground" : "text-foreground"}`}>{title}</h2>{text && <p className={`mt-4 leading-7 ${light ? "text-primary-foreground/80" : "text-muted-foreground"}`}>{text}</p>}</div>;
+const navItems = [
+  ["Home", "/"],
+  ["Serviços", "/servicos"],
+  ["Área Protegida", "/servicos/area-protegida"],
+  ["Sobre", "/sobre"],
+  ["Contato", "/contato"],
+] as const;
+
+function SiteHeader() {
+  const [open, setOpen] = useState(false);
+  return <>
+    <div className="hidden bg-brand-deep text-white sm:block">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-2 text-xs font-semibold lg:px-8">
+        <div className="flex flex-wrap items-center gap-x-7 gap-y-2">
+          <a href={phone} className="inline-flex items-center gap-2"><Phone className="size-3.5" />(83) 3240-0425</a>
+          <a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2"><MessageCircle className="size-3.5" />(83) 99406-4312</a>
+          <span className="inline-flex items-center gap-2"><MapPin className="size-3.5" />João Pessoa – PB e Região</span>
+        </div>
+        <div className="flex items-center gap-5">
+          <a href="https://www.instagram.com/medicus24h_/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2"><Instagram className="size-4" />medicus24h_</a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2"><Facebook className="size-4" />Médicus 24 horas</a>
+        </div>
+      </div>
+    </div>
+    <header className="sticky top-0 z-50 border-b border-border bg-white/95 shadow-sm backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-5 lg:px-8">
+        <Link to="/" aria-label="Médicus24h - Início" className="shrink-0"><img src={logo} alt="Médicus24h – Soluções em Saúde" className="h-14 w-auto object-contain sm:h-[68px]" /></Link>
+        <nav className="hidden items-center gap-7 lg:flex" aria-label="Navegação principal">
+          {navItems.map(([label, href], index) => <Link key={href} to={href} className={`text-sm font-bold transition-colors hover:text-brand-coral ${index === 0 ? "border-b-2 border-brand-coral pb-2 text-brand-coral" : "text-foreground"}`}>{label}{index === 1 && <ChevronDown className="ml-1 inline size-3.5" />}</Link>)}
+        </nav>
+        <div className="hidden lg:block"><a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-xl bg-brand-coral px-5 py-3 text-sm font-extrabold text-white shadow-md transition hover:-translate-y-0.5 hover:shadow-lg"><MessageCircle className="size-5" />Solicitar Orçamento</a></div>
+        <div className="flex items-center gap-2 lg:hidden">
+          <a href={whatsapp} target="_blank" rel="noreferrer" aria-label="Solicitar orçamento pelo WhatsApp" className="grid size-10 place-items-center rounded-full bg-brand-coral text-white"><MessageCircle className="size-5" /></a>
+          <Button variant="ghost" size="icon" aria-label={open ? "Fechar menu" : "Abrir menu"} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button>
+        </div>
+      </div>
+      {open && <nav className="grid gap-1 border-t border-border bg-white px-5 py-3 lg:hidden" aria-label="Menu móvel">{navItems.map(([label, href]) => <Link key={href} to={href} onClick={() => setOpen(false)} className="rounded-lg px-3 py-3 font-semibold hover:bg-brand-soft">{label}</Link>)}<a href={whatsapp} target="_blank" rel="noreferrer" className="mt-2 rounded-lg bg-brand-coral px-4 py-3 text-center font-bold text-white">Solicitar Orçamento</a></nav>}
+    </header>
+  </>;
 }
 
 function HomePage() {
-  return <div className="bg-background text-foreground"><Header /><main>
-    <section id="inicio" className="relative min-h-[640px] sm:min-h-[660px] overflow-hidden bg-brand-deep lg:min-h-[660px]">
-      <img src={ambulance.url} alt="Ambulância Médicus24h para remoção médica" className="absolute inset-0 h-full w-full object-cover object-center" fetchPriority="high" />
-      <div className="absolute inset-0 bg-gradient-to-r from-brand-deep via-brand-deep/80 to-brand-deep/10" />
-      <div className="relative mx-auto flex min-h-[640px] sm:min-h-[660px] max-w-7xl items-center px-4 py-20 sm:px-6 lg:min-h-[660px] lg:px-8"><div className="max-w-2xl animate-enter-up"><p className="mb-5 text-xs font-extrabold uppercase tracking-widest text-primary-foreground/75">Médicus24h | Soluções em Saúde</p><h1 className="max-w-3xl text-4xl font-extrabold leading-[1.08] text-primary-foreground sm:text-5xl lg:text-6xl">Saúde e cuidado quando você mais precisa.</h1><p className="mt-6 max-w-2xl text-base leading-8 text-primary-foreground/80 sm:text-lg">Oferecemos soluções em saúde para pessoas, empresas, instituições e eventos, com atendimento humanizado, segurança e agilidade.</p><div className="mt-9 flex flex-col gap-3 sm:flex-row"><Button asChild variant="hero" size="lg"><Link to="/servicos">Conheça nossas soluções <ArrowRight /></Link></Button><Button asChild variant="inverse" size="lg"><a href={whatsapp} target="_blank" rel="noreferrer">Fale com a Médicus24h</a></Button></div></div></div>
-    </section>
+  const cards = [
+    { title: "Área Protegida", text: "Assistência médica contínua para empresas, escolas, condomínios e eventos.", image: protectedArea, icon: ShieldCheck, href: "/servicos/area-protegida" },
+    { title: "Remoções Médicas", text: "Transporte seguro e humanizado, com equipe e equipamentos adequados.", image: ambulance, icon: Ambulance, href: "/servicos/remocao-medica" },
+    { title: "Telemedicina", text: "Atendimento médico online, com praticidade, conforto e segurança.", image: care, icon: MonitorSmartphone, href: "/telemedicina" },
+    { title: "Atendimento Médico", text: "Consultas e acompanhamento em diferentes necessidades de saúde.", image: exams, icon: Stethoscope, href: "/servicos/pronto-atendimento-domiciliar" },
+  ];
+  return <div className="min-h-screen bg-white text-foreground">
+    <SiteHeader />
+    <main>
+      <section className="relative isolate overflow-hidden bg-gradient-to-r from-[#f4fbfb] via-[#e8f6f7] to-[#d9f0f1]">
+        <div className="mx-auto grid min-h-[500px] max-w-7xl items-center px-5 lg:grid-cols-[.92fr_1.08fr] lg:gap-3 lg:px-8">
+          <div className="relative z-20 py-12 lg:py-14">
+            <p className="mb-4 text-xs font-extrabold uppercase tracking-[.15em] text-primary">Médicus24h | Soluções em Saúde</p>
+            <h1 className="max-w-[540px] text-[2.55rem] font-extrabold leading-[1.04] tracking-tight text-brand-deep sm:text-5xl xl:text-[3.55rem]">Soluções completas em saúde para <span className="text-brand-coral">pessoas e empresas.</span></h1>
+            <p className="mt-5 max-w-[470px] text-base leading-7 text-brand-deep sm:text-lg">Atendimento médico, remoções, telemedicina e Área Protegida, com agilidade, segurança e equipe qualificada.</p>
+            <div className="mt-6 flex max-w-[470px] flex-wrap gap-2.5">
+              {([[ShieldCheck,"Segurança","e Agilidade"],[Users,"Equipe","Especializada"],[Clock3,"Suporte","Contínuo"]] as const).map(([Icon,line1,line2]) => <div key={line1 as string} className="flex min-h-[58px] items-center gap-2 rounded-xl border border-primary/15 bg-white/85 px-3 py-2 shadow-sm"><Icon className="size-6 shrink-0 text-primary" /><span className="text-[11px] font-extrabold leading-tight text-brand-deep">{line1 as string}<br />{line2 as string}</span></div>)}
+            </div>
+            <a href={whatsapp} target="_blank" rel="noreferrer" className="mt-7 inline-flex items-center gap-3 rounded-full bg-brand-coral px-7 py-3.5 text-base font-extrabold text-white shadow-md transition hover:-translate-y-0.5 hover:shadow-lg sm:text-lg"><MessageCircle className="size-6" />Fale com a nossa equipe</a>
+          </div>
+          <div className="relative -mx-5 min-h-[350px] overflow-hidden sm:mx-0 lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:w-[55%] lg:min-h-0">
+            <div className="absolute inset-y-0 left-0 z-10 w-[18%] -skew-x-[27deg] bg-brand-coral lg:-left-10 lg:w-[20%]" />
+            <div className="absolute inset-y-0 left-[5%] right-0 overflow-hidden rounded-l-[42%] border-l-[7px] border-white/90 shadow-[-18px_0_35px_rgba(0,65,72,.10)] lg:left-[4%]">
+              <img src={ambulance} alt="Ambulância e equipe de atendimento móvel da Médicus24h" fetchPriority="high" className="h-full min-h-[350px] w-full object-cover object-center lg:min-h-0" />
+              <div className="absolute inset-0 bg-gradient-to-r from-brand-deep/10 via-transparent to-transparent" />
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <section aria-label="Compromissos Médicus24h" className="relative z-10 mx-auto -mt-8 max-w-7xl px-4 sm:px-6 lg:px-8"><div className="grid rounded-md border border-border bg-background shadow-xl sm:grid-cols-2 lg:grid-cols-4">{([[HeartHandshake,"Atendimento humanizado"],[Award,"Profissionais capacitados"],[Activity,"Soluções em saúde"],[Clock3,"Atendimento ágil"]] as const).map(([Icon,t],i)=><div key={t as string} className={`flex items-center gap-3 px-5 py-5 ${i ? "border-t border-border sm:border-l sm:border-t-0" : ""}`}><span className="grid size-11 shrink-0 place-items-center rounded-full bg-secondary text-primary"><Icon className="size-5" /></span><span className="text-sm font-bold">{t as string}</span></div>)}</div></section>
+      <section className="px-5 py-12 lg:px-8 lg:py-14">
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto mb-8 max-w-2xl text-center"><h2 className="text-3xl font-extrabold text-brand-deep sm:text-4xl">Nossas Soluções em Saúde</h2><div className="mx-auto mt-3 h-1 w-16 rounded-full bg-brand-coral" /><p className="mt-4 text-sm leading-6 text-muted-foreground sm:text-base">Estrutura, tecnologia e equipe preparada para um atendimento de excelência.</p></div>
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {cards.map(({title,text,image,icon:Icon,href}) => <article key={title} className="group overflow-hidden rounded-2xl border border-border bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="relative h-36 overflow-hidden"><img src={image} alt={title} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" /><span className="absolute -bottom-5 left-5 grid size-12 place-items-center rounded-full border-2 border-white bg-brand-coral text-white shadow-md"><Icon className="size-6" /></span></div>
+              <div className="p-5 pt-7"><h3 className="text-xl font-extrabold text-brand-deep">{title}</h3><p className="mt-2 min-h-[60px] text-sm leading-5 text-foreground">{text}</p><Link to={href} className="mt-4 inline-flex min-w-36 items-center justify-center gap-2 rounded-full border border-brand-coral px-5 py-2 text-sm font-extrabold text-brand-coral transition hover:bg-brand-coral hover:text-white">Saiba mais <ArrowRight className="size-4" /></Link></div>
+            </article>)}
+          </div>
+        </div>
+      </section>
 
-    <section id="servicos" className="px-4 py-24 sm:px-6 lg:px-8"><div className="mx-auto max-w-7xl"><SectionHead eyebrow="Cuidado completo" title="Nossas soluções em saúde" text="Serviços pensados para cuidar de você, da sua família, da sua empresa e de seus eventos." /><div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">{services.map(([Icon,title,desc,path],i)=><article key={title} className="group relative flex min-h-72 flex-col overflow-hidden rounded-md border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"><span className="absolute -right-5 -top-5 size-24 rounded-full bg-secondary transition-transform group-hover:scale-125" /><span className="relative grid size-12 place-items-center rounded-md bg-primary text-primary-foreground"><Icon className="size-6 transition-transform group-hover:scale-110" /></span><p className="mt-8 text-xs font-bold text-primary">0{i+1}</p><h3 className="mt-2 text-xl font-extrabold">{title}</h3><p className="mt-3 flex-1 text-sm leading-6 text-muted-foreground">{desc}</p><Link to={path} className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-primary">Saiba mais <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></Link></article>)}</div></div></section>
+      <section className="relative overflow-hidden bg-brand-deep text-white">
+        <div className="mx-auto grid max-w-7xl lg:grid-cols-[.65fr_1.35fr]">
+          <div className="relative hidden min-h-[210px] lg:block"><img src={care} alt="Profissional de saúde da equipe Médicus24h" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center" /><div className="absolute inset-0 bg-brand-deep/10" /><div className="absolute -right-5 top-0 h-full w-10 skew-x-[-18deg] bg-brand-coral" /></div>
+          <div className="px-5 py-10 sm:px-8 lg:px-12">
+            <h2 className="text-center text-3xl font-extrabold sm:text-4xl">Por que escolher a Médicus24h?</h2>
+            <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-4">
+              {([[HeartHandshake,"Atendimento","Humanizado"],[Clock3,"Agilidade","na Resposta"],[ShieldCheck,"Qualidade","e Segurança"],[MapPin,"Cobertura em","João Pessoa e Região"]] as const).map(([Icon,line1,line2]) => <div key={line1 as string} className="flex flex-col items-center text-center"><Icon className="size-9" /><p className="mt-3 text-sm font-extrabold leading-5">{line1 as string}<br/>{line2 as string}</p></div>)}
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <section className="bg-secondary px-4 py-24 sm:px-6 lg:px-8"><div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.05fr_.95fr]"><div className="relative"><img src={care.url} alt="Atendimento humanizado em saúde" loading="lazy" className="aspect-[4/3] w-full rounded-md object-cover shadow-xl" /><div className="absolute -bottom-5 right-4 max-w-56 rounded-md bg-primary p-5 text-primary-foreground shadow-xl sm:right-8"><HeartHandshake className="mb-3 size-7" /><p className="font-extrabold">Presença, segurança e acolhimento.</p></div></div><div><SectionHead eyebrow="Cuidado que acolhe" title="Seu cuidado. Nossa prioridade." text="Na Médicus24h, acreditamos que cuidar da saúde vai além do atendimento. É estar presente, oferecer segurança e proporcionar uma experiência acolhedora em todos os momentos." /><Button asChild size="lg"><Link to="/sobre">Conheça a Médicus24h <ArrowRight /></Link></Button></div></div></section>
+      <section className="px-5 py-12 lg:px-8 lg:py-16">
+        <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-2">
+          <div><h2 className="text-3xl font-extrabold text-brand-deep sm:text-4xl">A Médicus24h</h2><div className="mt-3 h-1 w-16 rounded-full bg-brand-coral" /><p className="mt-4 max-w-xl text-sm leading-6 sm:text-base">Somos uma empresa de soluções em saúde, com foco em atendimento médico de qualidade, segurança e agilidade. Atuamos na assistência à saúde de pessoas e empresas, com uma estrutura moderna, equipe qualificada e compromisso com a vida.</p><Link to="/sobre" className="mt-5 inline-flex items-center gap-2 rounded-full border border-brand-coral px-6 py-3 text-sm font-extrabold text-brand-coral transition hover:bg-brand-coral hover:text-white">Conheça nossa história <ArrowRight className="size-4" /></Link></div>
+          <div className="overflow-hidden rounded-[28px]"><img src={ambulance} alt="Estrutura de atendimento móvel da Médicus24h" loading="lazy" className="aspect-[16/8] w-full object-cover" /></div>
+        </div>
+      </section>
 
-    <section className="px-4 py-24 sm:px-6 lg:px-8"><div className="mx-auto max-w-7xl"><SectionHead eyebrow="Escolha segura" title="Por que escolher a Médicus24h?" /><div className="grid gap-px overflow-hidden rounded-md border border-border bg-border md:grid-cols-2 xl:grid-cols-5">{([[HeartHandshake,"Atendimento humanizado","Cuidado atento às necessidades de cada pessoa."],[Award,"Profissionais capacitados","Equipe preparada para oferecer suporte qualificado."],[Clock3,"Agilidade","Respostas rápidas para diferentes necessidades."],[ShieldCheck,"Segurança","Processos orientados à proteção do paciente."],[Sparkles,"Soluções personalizadas","Atendimento adequado a cada contexto."]] as const).map(([Icon,t,d])=><article key={t as string} className="bg-background p-6"><Icon className="size-7 text-primary"/><h3 className="mt-8 font-extrabold">{t as string}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{d as string}</p></article>)}</div></div></section>
-
-    <section className="overflow-hidden bg-brand-deep px-4 py-24 sm:px-6 lg:px-8"><div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2"><div><SectionHead light eyebrow="Área Protegida" title="Proteção para onde você estiver" text="Atendimento médico para empresas, instituições, condomínios e ambientes que desejam oferecer mais segurança a colaboradores, clientes, moradores e visitantes." /><div className="flex flex-wrap gap-2">{["Escolas","Igrejas","Indústrias","Condomínios","Clínicas","Empresas","Eventos"].map(x=><span key={x} className="rounded-full border border-primary-foreground/20 px-4 py-2 text-sm font-semibold text-primary-foreground">{x}</span>)}</div><Button asChild variant="hero" size="lg" className="mt-8"><a href={whatsapp}>Quero proteger meu espaço <ArrowRight /></a></Button></div><img src={protectedArea.url} alt="Ambiente protegido pela Médicus24h" loading="lazy" className="aspect-[4/3] w-full rounded-md object-cover shadow-2xl" /></div></section>
-
-    <section className="px-4 py-24 sm:px-6 lg:px-8"><div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2"><img src={ambulance.url} alt="Ambulância para atendimento e remoção Médicus24h" loading="lazy" className="aspect-[4/3] w-full rounded-md object-cover shadow-xl"/><div><SectionHead eyebrow="Remoção médica" title="Atendimento e remoção com segurança" text="Transferência de pacientes com equipe preparada, estrutura adequada e atenção em cada etapa do deslocamento." /><ul className="grid gap-3">{["Profissionais especializados","Suporte básico e avançado","Atendimento ágil","Estrutura adequada","Segurança do paciente"].map(x=><li key={x} className="flex items-center gap-3 font-semibold"><CircleCheck className="size-5 shrink-0 text-primary" />{x}</li>)}</ul><Button asChild variant="emergency" size="lg" className="mt-8"><a href="tel:+558333400425"><Ambulance /> Solicitar atendimento</a></Button></div></div></section>
-
-    <section id="telemedicina" className="bg-secondary px-4 py-24 sm:px-6 lg:px-8"><div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[.9fr_1.1fr]"><div><SectionHead eyebrow="Telemedicina" title="Atendimento médico onde você estiver" text="Mais praticidade para cuidar da sua saúde."/><ul className="grid grid-cols-2 gap-3">{["Atendimento remoto","Praticidade","Segurança","Comodidade","Acesso facilitado"].map(x=><li key={x} className="flex items-center gap-2 text-sm font-bold"><CircleCheck className="size-4 text-primary"/>{x}</li>)}</ul><Button asChild size="lg" className="mt-8"><Link to="/telemedicina">Conheça a Telemedicina <ArrowRight /></Link></Button></div><div className="relative mx-auto aspect-square w-full max-w-lg"><div className="absolute inset-8 rounded-full border border-primary/20"/><div className="absolute inset-16 rounded-full border border-primary/30"/><div className="absolute inset-24 grid place-items-center rounded-full bg-primary text-primary-foreground shadow-2xl"><MonitorSmartphone className="size-20"/></div>{["Consulta","Acesso","Cuidado"].map((x,i)=><span key={x} className={`absolute rounded-full bg-background px-4 py-2 text-sm font-bold shadow-lg ${i===0?"left-0 top-1/3":i===1?"right-0 top-1/4":"bottom-8 left-1/2 -translate-x-1/2"}`}>{x}</span>)}</div></div></section>
-
-    <section className="px-4 py-24 sm:px-6 lg:px-8"><div className="mx-auto max-w-7xl"><SectionHead eyebrow="Para todos" title="Saúde para diferentes necessidades"/><div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">{([[Building2,"Empresas"],[School,"Escolas"],[HeartHandshake,"Igrejas"],[Activity,"Indústrias"],[House,"Condomínios"],[Stethoscope,"Clínicas"],[CalendarDays,"Eventos"],[Users,"Famílias"]] as const).map(([Icon,t])=><div key={t as string} className="grid min-h-36 place-items-center rounded-md border border-border p-4 text-center transition-colors hover:bg-secondary"><Icon className="size-7 text-primary"/><p className="text-xs font-extrabold uppercase">{t as string}</p></div>)}</div></div></section>
-
-    <section id="sobre" className="bg-brand-soft px-4 py-24 sm:px-6 lg:px-8"><div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2"><img src={exams.url} alt="Atendimento de saúde no conforto do paciente" loading="lazy" className="aspect-[4/3] w-full rounded-md object-cover shadow-xl"/><div><SectionHead eyebrow="Quem somos" title="Sobre a Médicus24h" text="A Médicus24h oferece soluções em saúde que aproximam cuidado, praticidade e segurança. Nossos serviços atendem pessoas, famílias, empresas, instituições e eventos, presencialmente e por meio da tecnologia."/><Button asChild size="lg"><Link to="/sobre">Conheça nossa história <ArrowRight/></Link></Button></div></div></section>
-
-    <section id="principios" className="px-4 py-24 sm:px-6 lg:px-8"><div className="mx-auto max-w-7xl"><SectionHead eyebrow="Nossos princípios" title="Cuidado com propósito"/><div className="grid gap-5 md:grid-cols-3">{[["Missão","[INSERIR INFORMAÇÃO]"],["Visão","[INSERIR INFORMAÇÃO]"],["Valores","[INSERIR INFORMAÇÃO]"]].map(([t,d],i)=><article key={t} className={`rounded-md p-8 ${i===1?"bg-primary text-primary-foreground":"border border-border bg-background"}`}><p className="text-xs font-extrabold uppercase tracking-widest opacity-70">0{i+1}</p><h3 className="mt-10 text-2xl font-extrabold">{t}</h3><p className={`mt-4 leading-7 ${i===1?"text-primary-foreground/80":"text-muted-foreground"}`}>{d}</p></article>)}</div></div></section>
-
-    <section className="bg-brand-deep px-4 py-24 sm:px-6 lg:px-8"><div className="mx-auto max-w-7xl"><SectionHead light eyebrow="Transparência" title="Experiência que gera confiança" text="Os indicadores oficiais serão publicados aqui após validação pela Médicus24h."/><Statistics /></div></section>
-
-    <section className="px-4 py-24 sm:px-6 lg:px-8"><div className="mx-auto max-w-7xl"><SectionHead eyebrow="Relacionamentos" title="Quem confia na Médicus24h"/><Testimonials /></div></section>
-
-    <section className="bg-secondary px-4 py-24 sm:px-6 lg:px-8"><div className="mx-auto max-w-7xl"><SectionHead eyebrow="Informação" title="Conteúdos para cuidar melhor da sua saúde"/><div className="grid gap-5 md:grid-cols-3">{[care,exams,protectedArea].map((img,i)=><article key={i} className="group overflow-hidden rounded-md border border-border bg-background"><img src={img.url} alt="Imagem ilustrativa para futuro conteúdo de saúde" loading="lazy" className="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-105"/><div className="p-6"><p className="text-xs font-extrabold uppercase text-primary">[INSERIR CATEGORIA]</p><h3 className="mt-3 text-xl font-extrabold">[INSERIR TÍTULO DO ARTIGO]</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">[INSERIR RESUMO DO CONTEÚDO]</p><div className="mt-6 flex items-center justify-between text-sm"><span className="text-muted-foreground">[INSERIR DATA]</span><span className="font-bold text-primary">Leia mais</span></div></div></article>)}</div></div></section>
-
-    <section className="px-4 py-20 sm:px-6 lg:px-8"><div className="mx-auto flex max-w-7xl flex-col justify-between gap-8 rounded-md bg-primary p-8 text-primary-foreground sm:p-12 lg:flex-row lg:items-center"><div><h2 className="text-3xl font-extrabold sm:text-4xl">Conte com a Médicus24h</h2><p className="mt-3 max-w-2xl text-primary-foreground/80">Encontre a solução em saúde ideal para você, sua família, sua empresa ou seu evento.</p></div><div className="flex shrink-0 flex-col gap-3 sm:flex-row"><Button asChild variant="inverse" size="lg"><a href={whatsapp}>Fale conosco</a></Button><Button asChild variant="emergency" size="lg"><a href="tel:+558333400425">Solicitar atendimento</a></Button></div></div></section>
-
-    <section id="contato" className="border-t border-border px-4 py-24 sm:px-6 lg:px-8"><div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.8fr_1.2fr]"><SectionHead eyebrow="Contato" title="Estamos prontos para atender" text="Entre em contato com a unidade João Pessoa pelos canais oficiais."/><div className="grid gap-4 sm:grid-cols-2">{([[MapPin,"Unidade João Pessoa","Rua Quintino Bocaiúva, 739, Torre, João Pessoa - PB","https://maps.google.com/?q=Rua+Quintino+Bocaiuva+739+Torre+Joao+Pessoa+PB"],[Phone,"Telefone","(83) 3340-0425","tel:+558333400425"],[Phone,"WhatsApp","(83) 99102-2983",whatsapp],[Mail,"E-mail","contato@medicus24h.com.br","mailto:contato@medicus24h.com.br"]] as const).map(([Icon,t,d,h])=><a key={t as string} href={h as string} target={(h as string).startsWith("http")?"_blank":undefined} rel="noreferrer" className="group rounded-md border border-border p-6 hover:border-primary hover:bg-secondary"><Icon className="size-6 text-primary"/><h3 className="mt-5 font-extrabold">{t as string}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground group-hover:text-foreground">{d as string}</p></a>)}</div></div></section>
-  </main><Footer/><a href={whatsapp} target="_blank" rel="noreferrer" aria-label="Fale conosco pelo WhatsApp" title="Fale conosco pelo WhatsApp" className="fixed bottom-5 right-5 z-40 grid size-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-xl transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-ring"><Phone className="size-6"/></a></div>;
+      <section className="bg-brand-coral px-5 py-7 text-white">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 sm:flex-row">
+          <div className="flex items-center gap-4"><CalendarDays className="size-10 shrink-0" /><h2 className="max-w-lg text-xl font-extrabold leading-tight sm:text-2xl">Precisa de uma solução em saúde para sua empresa ou evento?</h2></div>
+          <div className="flex flex-col items-center gap-4 border-white/50 sm:flex-row sm:border-l sm:pl-6"><p className="max-w-xs text-sm leading-5">Fale com a nossa equipe e receba uma proposta personalizada.</p><a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3 font-extrabold text-brand-coral shadow-md transition hover:-translate-y-0.5"><MessageCircle className="size-5" />Solicitar Orçamento</a></div>
+        </div>
+      </section>
+    </main>
+    <Footer />
+    <a href={whatsapp} target="_blank" rel="noreferrer" aria-label="Fale com a Médicus24h pelo WhatsApp" className="fixed bottom-5 right-5 z-40 grid size-14 place-items-center rounded-full bg-brand-coral text-white shadow-xl transition hover:scale-105"><MessageCircle className="size-7" /></a>
+  </div>;
 }
-
