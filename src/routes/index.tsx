@@ -5,8 +5,7 @@ import {
   HeartHandshake, MapPin, Menu, MonitorSmartphone, Phone, ShieldCheck,
   Stethoscope, Users, X,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { services, whatsapp as defaultWhatsapp } from "@/lib/medicus-content";
+import { services } from "@/lib/medicus-content";
 import logoSrc from "@/assets/medicus24h-logo.png";
 import heroSrc from "@/assets/banner1.jpg";
 import protectedAreaSrc from "@/assets/area-protegida.jpg";
