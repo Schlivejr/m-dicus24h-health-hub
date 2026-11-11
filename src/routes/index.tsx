@@ -7,7 +7,6 @@ import {
 } from "lucide-react";
 import { services } from "@/lib/medicus-content";
 import logoSrc from "@/assets/medicus24h-logo.png";
-import heroSrc from "@/assets/banner1.jpg";
 import protectedAreaSrc from "@/assets/area-protegida.jpg";
 import ambulanceSrc from "@/assets/ambulancia.jpg";
 import careSrc from "@/assets/assistencia-domiciliar.jpg";
@@ -112,7 +111,7 @@ function HomePage() {
             </div>
             <div className="relative min-h-[300px] overflow-hidden lg:min-h-[420px]">
               <div className="absolute -left-16 top-0 z-10 h-full w-36 -skew-x-[28deg] bg-[#e50916] sm:-left-20 sm:w-44" />
-              <img src={heroSrc} alt="Profissional da Médicus24h com equipe e ambulância em atendimento" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover object-center" />
+              <img src="/images/hero-medicus24h.png" alt="Profissional da Médicus24h com equipe e ambulância em atendimento" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover object-center" />
             </div>
           </div>
         </section>
